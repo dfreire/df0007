@@ -1,2 +1,2 @@
 #!/bin/bash
-elm-make Todo.elm --output elm.js
+elm-make ./src/Todo.elm --output dist/elm.js
