@@ -7302,8 +7302,8 @@ var _elm_lang$html$Html_Events$Options = F2(
 	});
 
 var _evancz$elm_todomvc$MyApp$update = F2(
-	function (msg, model) {
-		var _p0 = msg;
+	function (action, model) {
+		var _p0 = action;
 		if (_p0.ctor === 'Increment') {
 			return model + 1;
 		} else {
