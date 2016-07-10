@@ -1,42 +1,100 @@
-port module MyApp exposing (..)
+module Main exposing (..)
 
-import Html exposing (Html, button, div, text)
-import Html.App as Html
-import Html.Events exposing (onClick)
+import Html.App as App
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import About
+import Route
+import Navigation
+import Topic
+import Helpers exposing (link)
 
-main =
-  Html.beginnerProgram
-    { model = model
-    , view = view
-    , update = update
+
+type alias Model =
+    { route : Route.Model
     }
 
--- MODEL
-type alias Model = Int
 
-model : Model
-model =
-  0
+type Msg
+    = NoOp
 
--- UPDATE
-type Action
-  = Increment
-  | Decrement
 
-update : Action -> Model -> Model
-update action model =
-  case action of
-    Increment ->
-      model + 1
+init : Maybe Route.Location -> ( Model, Cmd Msg )
+init location =
+    let
+        route =
+            Route.init location
+    in
+        { route = route
+        }
+            ! []
 
-    Decrement ->
-      model - 1
 
--- VIEW
-view : Model -> Html Action
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        NoOp ->
+            model ! []
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
+
+
+view : Model -> Html Msg
 view model =
-  div []
-    [ button [ onClick Decrement ] [ text "-" ]
-    , div [] [ text (toString model) ]
-    , button [ onClick Increment ] [ text "+" ]
+    let
+        body =
+            case model.route of
+                Just (Route.Home) ->
+                    About.view
+
+                Just (Route.Topics) ->
+                    Topic.view Topic.fakeTopics
+
+                Just (Route.Topic slug) ->
+                    Topic.viewTopic slug Topic.fakeTopics
+
+                Nothing ->
+                    text "Not found!"
+    in
+        div []
+            [ navigationView model
+            , body
+            ]
+
+
+navigationView : Model -> Html Msg
+navigationView model =
+    let
+        linkListItem linkData =
+            li [] [ link linkData ]
+    in
+        nav []
+            [ ul []
+                (List.map linkListItem links)
+            ]
+
+
+links : List ( Route.Location, String )
+links =
+    [ ( Route.Home, "Home" )
+    , ( Route.Topics, "Topics" )
     ]
+
+
+main : Program Never
+main =
+    Navigation.program (Navigation.makeParser Route.locFor)
+        { init = init
+        , update = update
+        , urlUpdate = updateRoute
+        , subscriptions = subscriptions
+        , view = view
+        }
+
+
+updateRoute : Maybe Route.Location -> Model -> ( Model, Cmd Msg )
+updateRoute route model =
+    { model | route = route } ! []

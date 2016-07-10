@@ -7301,6 +7301,17 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
+var _evancz$elm_todomvc$LandingPage$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		_elm_lang$core$Native_List.fromArray(
+			[]),
+		_elm_lang$core$Native_List.fromArray(
+			[
+				_elm_lang$html$Html$text('Landing Page')
+			]));
+};
+
 var _evancz$elm_todomvc$MyApp$update = F2(
 	function (action, model) {
 		var _p0 = action;
@@ -7314,42 +7325,7 @@ var _evancz$elm_todomvc$MyApp$model = 0;
 var _evancz$elm_todomvc$MyApp$Decrement = {ctor: 'Decrement'};
 var _evancz$elm_todomvc$MyApp$Increment = {ctor: 'Increment'};
 var _evancz$elm_todomvc$MyApp$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		_elm_lang$core$Native_List.fromArray(
-			[]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html$button,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Events$onClick(_evancz$elm_todomvc$MyApp$Decrement)
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('-')
-					])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(model))
-					])),
-				A2(
-				_elm_lang$html$Html$button,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Events$onClick(_evancz$elm_todomvc$MyApp$Increment)
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text('+')
-					]))
-			]));
+	return _evancz$elm_todomvc$LandingPage$view(_evancz$elm_todomvc$MyApp$Increment);
 };
 var _evancz$elm_todomvc$MyApp$main = {
 	main: _elm_lang$html$Html_App$beginnerProgram(
