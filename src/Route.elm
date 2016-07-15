@@ -6,8 +6,7 @@ import Navigation
 
 type Location
     = Home
-    | Topics
-    | Topic String
+    | Dashboard
 
 
 type alias Model =
@@ -27,11 +26,8 @@ urlFor loc =
                 Home ->
                     "/"
 
-                Topics ->
-                    "/topics"
-
-                Topic slug ->
-                    "/topics/" ++ slug
+                Dashboard ->
+                    "/dashboard"
     in
         "#" ++ url
 
@@ -48,11 +44,8 @@ locFor path =
             [] ->
                 Just Home
 
-            [ "topics" ] ->
-                Just Topics
-
-            [ "topics", slug ] ->
-                Just (Topic slug)
+            [ "dashboard" ] ->
+                Just Dashboard
 
             _ ->
                 Nothing

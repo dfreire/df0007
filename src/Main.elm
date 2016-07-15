@@ -3,16 +3,15 @@ module Main exposing (..)
 import Html.App as App
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import About
 import Route
 import Navigation
-import Topic
+import Home
+import Dashboard
 import Helpers exposing (link)
 
 
 type alias Model =
-    { route : Route.Model
-    }
+    { route : Route.Model }
 
 
 type Msg
@@ -48,13 +47,10 @@ view model =
         body =
             case model.route of
                 Just (Route.Home) ->
-                    About.view
+                    Home.view
 
-                Just (Route.Topics) ->
-                    Topic.view Topic.fakeTopics
-
-                Just (Route.Topic slug) ->
-                    Topic.viewTopic slug Topic.fakeTopics
+                Just (Route.Dashboard) ->
+                    Dashboard.view
 
                 Nothing ->
                     text "Not found!"
@@ -80,7 +76,7 @@ navigationView model =
 links : List ( Route.Location, String )
 links =
     [ ( Route.Home, "Home" )
-    , ( Route.Topics, "Topics" )
+    , ( Route.Dashboard, "Dashboard" )
     ]
 
 
