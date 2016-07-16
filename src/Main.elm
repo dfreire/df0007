@@ -3,11 +3,22 @@ module Main exposing (..)
 import Html.App as App
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Route
 import Navigation
+import Route
 import Home
 import Dashboard
 import Helpers exposing (link)
+
+
+main : Program Never
+main =
+    Navigation.program (Navigation.makeParser Route.locFor)
+        { init = init
+        , update = update
+        , urlUpdate = urlUpdate
+        , subscriptions = subscriptions
+        , view = view
+        }
 
 
 type alias Model =
@@ -24,9 +35,7 @@ init location =
         route =
             Route.init location
     in
-        { route = route
-        }
-            ! []
+        { route = route } ! []
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -80,17 +89,6 @@ links =
     ]
 
 
-main : Program Never
-main =
-    Navigation.program (Navigation.makeParser Route.locFor)
-        { init = init
-        , update = update
-        , urlUpdate = updateRoute
-        , subscriptions = subscriptions
-        , view = view
-        }
-
-
-updateRoute : Maybe Route.Location -> Model -> ( Model, Cmd Msg )
-updateRoute route model =
+urlUpdate : Maybe Route.Location -> Model -> ( Model, Cmd Msg )
+urlUpdate route model =
     { model | route = route } ! []
