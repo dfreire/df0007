@@ -33,7 +33,7 @@ init : Maybe Route.Location -> ( Model, Cmd Msg )
 init location =
     let
         route =
-            Route.init location
+            location
     in
         { route = route } ! []
 

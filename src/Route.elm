@@ -13,11 +13,6 @@ type alias Model =
     Maybe Location
 
 
-init : Maybe Location -> Model
-init location =
-    location
-
-
 urlFor : Location -> String
 urlFor loc =
     let
